@@ -3,7 +3,7 @@ import './style.css'
 function SessionForm() {
     const [email, setEmail] = useState(null);
     const [password,setPassword] = useState(null);
-
+    const [error, setError] = useState(null);
     const handleInputChange = (e) => {
         const {id , value} = e.target;
         if(id === "email"){
@@ -23,8 +23,8 @@ function SessionForm() {
         },
         body: JSON.stringify({
             user: {
-            email: "test@test.com",
-            password: "password",
+            email: email,
+            password: password,
             },
         }),
         })
@@ -39,12 +39,20 @@ function SessionForm() {
             }
         })
         .then((json) => console.dir(json))
-        .catch((err) => console.error(err));
+        .catch((err) => {
+            setError(err);
+            console.error(err);
+        });
     }
 
     return(
         <div className="form">
             <div className="form-body">
+                {error &&
+                    <div className="error">
+                        <p> {error} </p>
+                    </div> 
+                }
                 <div className="email">
                     <label className="form__label" for="email">Email </label>
                     <input  type="email" id="email" className="form__input" value={email} onChange = {(e) => handleInputChange(e)} placeholder="Email"/>
