@@ -1,5 +1,5 @@
 import React from "react";
-
+import SignOutButton from "../dashboard/SignOutButton";
 const TopNav = () => (
   <nav>
     <ul>
@@ -24,6 +24,8 @@ const TopNav = () => (
       <li className="split-button-2">Victor Reyes</li>
       <li className="info-icon icon"></li>
       <li className="notifications-icon icon"></li>
+      { localStorage.getItem("token") ? <SignOutButton/> : null}
+
     </ul>
   </nav>
 );

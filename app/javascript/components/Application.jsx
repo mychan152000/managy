@@ -5,7 +5,7 @@ import BoardsDashboardContainer from './dashboard/BoardsDashboardContainer';
 import BoardContainer from './board/BoardContainer';
 import CardContainer from './card/CardContainer';
 import RegistrationForm from './dashboard/RegistrationForm';
-
+import SessionForm from './dashboard/SessionForm';
 const Application = () => {
   return (
     <div>
@@ -15,7 +15,11 @@ const Application = () => {
           <Route path="/boards/:id" component={BoardContainer} />
           <Route path="/" exact component={BoardsDashboardContainer} />
         </Switch><Route path="/cards/:card_id" component={CardContainer} /><Route path="/cards/:card_id" component={BoardContainer} /></>
-        ) : <RegistrationForm />
+        ) : 
+        <>
+          <RegistrationForm /> 
+          <SessionForm />
+        </>
       }
     </div>
   );

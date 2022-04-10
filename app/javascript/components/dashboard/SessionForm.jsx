@@ -1,6 +1,6 @@
 import React, {useState,setState} from 'react';
 import './style.css'
-function RegistrationForm() {
+function SessionForm() {
     const [email, setEmail] = useState(null);
     const [password,setPassword] = useState(null);
 
@@ -16,15 +16,15 @@ function RegistrationForm() {
     }
 
     const handleSubmit  = () => {
-        fetch("/signup", {
+        fetch("/login", {
         method: "post",
         headers: {
             "Content-Type": "application/json",
         },
         body: JSON.stringify({
             user: {
-            email: email,
-            password: password,
+            email: "test@test.com",
+            password: "password",
             },
         }),
         })
@@ -35,7 +35,7 @@ function RegistrationForm() {
             window.location.reload();
             return res.json();
             } else {
-            throw new Error(res);
+            return res.text().then((text) => Promise.reject(text));
             }
         })
         .then((json) => console.dir(json))
@@ -55,11 +55,11 @@ function RegistrationForm() {
                 </div>
             </div>
             <div class="footer">
-                <button onClick={()=>handleSubmit()} type="submit" class="btn">Register</button>
+                <button onClick={()=>handleSubmit()} type="submit" className="btn">Sign In</button>
             </div>
         </div>
        
     )       
 }
 
-export default RegistrationForm
+export default SessionForm
