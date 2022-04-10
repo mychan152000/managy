@@ -1,3 +1,4 @@
+@import 'bootstrap/dist/css/bootstrap.min.css';
 @font-face {
   font-family: MarketFF;
   src: font-url("ufonts.com_market-web.ttf");
@@ -923,6 +924,7 @@ small {
   width: auto;
   padding: 0 8px;
 }
+
 .boards span {
   pointer-events: none;
 }
@@ -3769,6 +3771,9 @@ form.description .textarea-toggle {
 .x-icon:before {
   content: "\e915";
 }
+.trello-icon a {
+  color: inherit;
+}
 .trello-icon:before {
   content: "\e908";
 }
@@ -3922,6 +3927,7 @@ form.description .textarea-toggle {
   .split-button-2 {
     display: none;
   }
+  
   .search-container {
     width: 30px;
   }

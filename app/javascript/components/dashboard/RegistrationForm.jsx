@@ -1,8 +1,12 @@
 import React, {useState,setState} from 'react';
-import './style.css'
+import Form  from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
+import './style.css';
+
 function RegistrationForm() {
     const [email, setEmail] = useState(null);
     const [password,setPassword] = useState(null);
+    const [error, setError] = useState(null);
 
     const handleInputChange = (e) => {
         const {id , value} = e.target;
@@ -30,7 +34,7 @@ function RegistrationForm() {
         })
         .then((res) => {
             if (res.ok) {
-            console.log(res.headers.get("Authorization"));
+            localStorage.setItem("user.email", email);
             localStorage.setItem("token", res.headers.get("Authorization"));
             window.location.reload();
             return res.json();
@@ -39,24 +43,35 @@ function RegistrationForm() {
             }
         })
         .then((json) => console.dir(json))
-        .catch((err) => console.error(err));
+        .catch((err) => {
+            setError(err);
+            console.error(err);
+            return false;
+        });
     }
 
     return(
-        <div className="form">
-            <div className="form-body">
-                <div className="email">
-                    <label className="form__label" for="email">Email </label>
-                    <input  type="email" id="email" className="form__input" value={email} onChange = {(e) => handleInputChange(e)} placeholder="Email"/>
-                </div>
-                <div className="password">
-                    <label className="form__label" for="password">Password </label>
-                    <input className="form__input" type="password"  id="password" value={password} onChange = {(e) => handleInputChange(e)} placeholder="Password"/>
-                </div>
-            </div>
-            <div class="footer">
-                <button onClick={()=>handleSubmit()} type="submit" class="btn">Register</button>
-            </div>
+        <div className="container">
+            <Form className="form">
+                <h1>Registration</h1>
+                {error &&
+                        <div className="error">
+                            <p> {error} </p>
+                        </div> 
+                }
+                <Form.Group className="mb-3" controlId="formBasicEmail">
+                    <Form.Label>Email address</Form.Label>
+                    <Form.Control type="email" id="email" placeholder="Enter email" value={email} onChange = {(e) => handleInputChange(e)} />
+                </Form.Group>
+
+                <Form.Group className="mb-3" controlId="formBasicPassword">
+                    <Form.Label>Password</Form.Label>
+                    <Form.Control type="password" id="password" placeholder="Password" value={password} onChange = {(e) => handleInputChange(e)} />
+                </Form.Group>
+                <Button variant="primary" onClick={()=>handleSubmit()} >
+                    Sign Up
+                </Button>
+            </Form>
         </div>
        
     )       

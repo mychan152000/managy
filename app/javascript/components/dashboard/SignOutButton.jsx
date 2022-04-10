@@ -4,12 +4,13 @@ function SignOutButton() {
 
     const handleSubmit  = () => {
         localStorage.removeItem("token");
+        localStorage.removeItem("user.email");
         window.location.reload();
     }
 
     return(
         <div>
-            <button onClick={()=>handleSubmit()} type="submit" class="btn">Sign Out</button>
+            <button onClick={()=>handleSubmit()} type="submit" class="btn btn-signout">Sign Out</button>
         </div>       
     )       
 }
