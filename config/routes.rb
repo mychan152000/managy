@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'private/test'
+  get '/current_user', to: 'current_user#index'
   root to: 'home#index'
 
   namespace :api do
@@ -7,7 +9,15 @@ Rails.application.routes.draw do
     resources :cards, only: [:create, :show, :update]
     resources :comments, only: [:create]
   end
-
+  devise_for :users, path: '', path_names: {
+    sign_in: 'login',
+    sign_out: 'logout',
+    registration: 'signup'
+  },
+  controllers: {
+    sessions: 'users/sessions',
+    registrations: 'users/registrations'
+  }
   get '/ui/all_boards', to: 'ui#all_boards'
   get '/ui/single_board', to: 'ui#single_board'
   get '/ui/create_board', to: 'ui#create_board'
